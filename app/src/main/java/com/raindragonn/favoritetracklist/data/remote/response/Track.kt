@@ -2,6 +2,7 @@ package com.raindragonn.favoritetracklist.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName
+import com.raindragonn.favoritetracklist.data.model.TrackItem
 
 data class Track(
     @SerializedName("artistId")
@@ -74,4 +75,12 @@ data class Track(
     val trackViewUrl: String?,
     @SerializedName("wrapperType")
     val wrapperType: String?
+)
+
+fun Track.mapToItem(): TrackItem = TrackItem(
+    trackId = trackId ?: -1,
+    trackName = trackName,
+    artistName = artistName,
+    albumArtUrl = artworkUrl100,
+    collectionName = collectionName
 )

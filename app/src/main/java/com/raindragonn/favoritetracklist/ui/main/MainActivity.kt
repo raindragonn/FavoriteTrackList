@@ -1,45 +1,30 @@
 package com.raindragonn.favoritetracklist.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.raindragonn.favoritetracklist.R
-import com.raindragonn.favoritetracklist.data.repository.TrackRepository
 import com.raindragonn.favoritetracklist.databinding.ActivityMainBinding
 import com.raindragonn.favoritetracklist.ui.FavoriteFragment
 import com.raindragonn.favoritetracklist.ui.track.TrackFragment
 import kotlinx.coroutines.*
-import org.koin.android.ext.android.inject
-import kotlin.coroutines.CoroutineContext
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener, CoroutineScope {
-    private val job: Job by lazy { Job() }
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-
-    private val repository: TrackRepository by inject()
-
+class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
+    private val vm: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
             lifecycleOwner = this@MainActivity
-
             initBottomNavigationView()
-
-            launch {
-                repository.getTrackList().forEach {
-                    Log.d("DEV_LOG", "onCreate: $it")
-                }
-            }
+            vm.getList()
         }
     }
 
