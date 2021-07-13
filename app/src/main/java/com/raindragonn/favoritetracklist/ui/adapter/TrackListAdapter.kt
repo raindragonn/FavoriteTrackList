@@ -23,6 +23,8 @@ class TrackListAdapter : ListAdapter<TrackItem, TrackListAdapter.ViewHolder>(dif
         }
     }
 
+    var favoriteClickListener: ((TrackItem) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemTrackBinding.inflate(
@@ -40,6 +42,14 @@ class TrackListAdapter : ListAdapter<TrackItem, TrackListAdapter.ViewHolder>(dif
     inner class ViewHolder(
         private val binding: ItemTrackBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.ivFavorite.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    favoriteClickListener?.invoke(getItem(adapterPosition))
+                }
+            }
+        }
+
         fun bind(track: TrackItem) {
             binding.trackItem = track
         }

@@ -24,3 +24,10 @@ fun setItems(view: RecyclerView, items: List<TrackItem>?) {
         submitList(items)
     }
 }
+
+@BindingAdapter("setOnclick")
+fun setFavoriteClick(view: RecyclerView, click: ((TrackItem) -> Unit)?) {
+    (view.adapter as? TrackListAdapter)?.apply {
+        favoriteClickListener = click
+    }
+}

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.raindragonn.favoritetracklist.R
 import com.raindragonn.favoritetracklist.databinding.ActivityMainBinding
-import com.raindragonn.favoritetracklist.ui.FavoriteFragment
+import com.raindragonn.favoritetracklist.ui.favorite.FavoriteFragment
 import com.raindragonn.favoritetracklist.ui.track.TrackFragment
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
