@@ -2,6 +2,7 @@ package com.raindragonn.favoritetracklist
 
 import android.app.Application
 import com.raindragonn.favoritetracklist.di.appModule
+import com.raindragonn.favoritetracklist.di.networkModule
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -12,11 +13,11 @@ class FTApplication : Application() {
         super.onCreate()
 
         startKoin {
-            if(BuildConfig.DEBUG){
+            if (BuildConfig.DEBUG) {
                 printLogger(Level.DEBUG)
             }
             androidContext(this@FTApplication)
-            modules(appModule)
+            modules(appModule, networkModule)
         }
     }
 }

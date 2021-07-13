@@ -1,17 +1,28 @@
 package com.raindragonn.favoritetracklist.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.raindragonn.favoritetracklist.R
+import com.raindragonn.favoritetracklist.data.repository.TrackRepository
 import com.raindragonn.favoritetracklist.databinding.ActivityMainBinding
 import com.raindragonn.favoritetracklist.ui.FavoriteFragment
 import com.raindragonn.favoritetracklist.ui.track.TrackFragment
+import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener, CoroutineScope {
+    private val job: Job by lazy { Job() }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    private val repository: TrackRepository by inject()
 
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -21,9 +32,20 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         super.onCreate(savedInstanceState)
         binding.apply {
             lifecycleOwner = this@MainActivity
-            bottomNav.setOnItemSelectedListener(this@MainActivity)
-            bottomNav.selectedItemId = R.id.menu_track_list
+
+            initBottomNavigationView()
+
+            launch {
+                repository.getTrackList().forEach {
+                    Log.d("DEV_LOG", "onCreate: $it")
+                }
+            }
         }
+    }
+
+    private fun initBottomNavigationView() = with(binding) {
+        bottomNav.setOnItemSelectedListener(this@MainActivity)
+        bottomNav.selectedItemId = R.id.menu_track_list
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
