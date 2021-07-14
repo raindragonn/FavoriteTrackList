@@ -6,8 +6,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.raindragonn.favoritetracklist"
@@ -46,30 +46,26 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
-    // Multidex
-    implementation 'androidx.multidex:multidex:2.0.1'
-
     // Room
     implementation "androidx.room:room-runtime:${versions.room}"
     implementation "androidx.room:room-ktx:${versions.room}"
     kapt "androidx.room:room-compiler:${versions.room}"
 
-    // Retrofit
+    // Retrofit - Http 통신을 보다 편하게 하기위한 라이브러리
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${versions.logging_interceptor}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}" // 응답받은 Json을 편하게 컨버팅 하기 위함
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.logging_interceptor}" // http 통신 로그 확인을 위함
 
     // Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${versions.coroutine}"
 
-    // Koin
+    // Koin - 의존성 주입을 위한 라이브러리
     implementation "io.insert-koin:koin-core:${versions.koin}"
     implementation "io.insert-koin:koin-androidx-scope:${versions.koin}"
     implementation "io.insert-koin:koin-androidx-ext:${versions.koin}"
     implementation "io.insert-koin:koin-androidx-fragment:${versions.koin}"
 
-    // Glide
+    // Glide - 이미지 로더 라이브러리
     implementation "com.github.bumptech.glide:glide:${versions.glide}"
     kapt "com.github.bumptech.glide:compiler:${versions.glide}"
 
