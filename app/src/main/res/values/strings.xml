@@ -2,5 +2,6 @@
     <string name="app_name">FavoriteTrackList</string>
     <string name="title_track_list">트랙 리스트</string>
     <string name="title_favorite_list">좋아요 리스트</string>
-    <string name="guide_empty_favorite_list">⭐별 표시를 눌러\n좋아요를 추가해 주세요.</string>
+    <string name="guide_empty_favorite_list_desc">별 표시를 눌러\n좋아요를 추가해 주세요.</string>
+    <string name="guide_error_desc">에러가 발생했습니다\n새로고침 하려면 눌러주세요.</string>
 </resources>

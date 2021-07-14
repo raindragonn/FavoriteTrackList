@@ -1,20 +1,21 @@
 package com.raindragonn.favoritetracklist.data.local.room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import com.raindragonn.favoritetracklist.data.local.room.entity.FavoriteEntity
+import androidx.room.*
+import com.raindragonn.favoritetracklist.data.model.TrackItem
+
 
 @Dao
 interface FavoriteDao {
 
     @Query("select * from favorites")
-    suspend fun getFavoriteList(): List<FavoriteEntity>
+    suspend fun getFavoriteList(): List<TrackItem>
 
-    @Insert
-    suspend fun insertFavorite(favoriteEntity: FavoriteEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavorite(favoriteEntity: TrackItem)
 
-    @Delete
-    suspend fun deleteFavorite(favoriteEntity: FavoriteEntity)
+    @Query("select * from favorites where trackId == :id")
+    suspend fun getFavorite(id: Int): TrackItem?
+
+    @Update
+    suspend fun updateFavorite(favoriteEntity: TrackItem)
 }

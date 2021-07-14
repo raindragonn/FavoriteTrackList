@@ -15,6 +15,11 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
+/**
+ * Koin 을 통한 의존성 주입을 위한 모듈 정의
+ *
+ */
+
 val appModule = module {
 
     // ViewModel

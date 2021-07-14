@@ -9,6 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 
+/**
+ * Itunes API 통신을 위한 모듈
+ */
 val networkModule = module {
     single<Retrofit> {
         Retrofit.Builder()
@@ -22,9 +25,6 @@ val networkModule = module {
         OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
             .build()
     }
     single<ItunesApi> { get<Retrofit>().create() }

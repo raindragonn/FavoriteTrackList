@@ -20,13 +20,14 @@
             android:id="@+id/rv_track"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{vm.isLoading ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.isError ? View.GONE : View.VISIBLE}"
             app:items="@{vm.trackList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:setLoadMoreListener="@{vm.onLoadMore}"
             app:setOnclick="@{vm.onFavoriteClick}" />
 
         <ProgressBar
@@ -38,6 +39,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/guide_error_desc"
+            android:textColor="@color/white"
+            android:visibility="@{vm.isError ? View.VISIBLE : View.GONE}"
+            app:drawableTopCompat="@drawable/ic_refresh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setRefreshClick="@{vm.onRefreshClick}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

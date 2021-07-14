@@ -1,9 +1,11 @@
 package com.raindragonn.favoritetracklist.data.local
 
-import com.raindragonn.favoritetracklist.data.local.room.entity.FavoriteEntity
+import com.raindragonn.favoritetracklist.data.model.TrackItem
+
 
 interface LocalDataSource {
-    suspend fun getFavoriteList(): List<FavoriteEntity>
-    suspend fun insertFavorite(favoriteEntity: FavoriteEntity)
-    suspend fun deleteFavorite(favoriteEntity: FavoriteEntity)
+    suspend fun getFavoriteList(): List<TrackItem>
+    suspend fun insertFavorite(favoriteEntity: TrackItem)
+    suspend fun updateFavorite(favoriteEntity: TrackItem)
+    suspend fun getFavorite(id: Int): TrackItem?
 }

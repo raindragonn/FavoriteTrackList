@@ -13,9 +13,7 @@ class FTApplication : Application() {
         super.onCreate()
 
         startKoin {
-            if (BuildConfig.DEBUG) {
-                printLogger(Level.DEBUG)
-            }
+            printLogger(Level.DEBUG)
             androidContext(this@FTApplication)
             modules(appModule, networkModule)
         }

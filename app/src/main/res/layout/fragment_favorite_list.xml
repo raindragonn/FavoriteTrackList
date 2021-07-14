@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,7 +21,7 @@
             android:id="@+id/rv_favorite"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{vm.isLoading ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.isError ? View.GONE : View.VISIBLE}"
             app:items="@{vm.favoriteList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,12 +44,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/guide_empty_favorite_list"
+            android:text="@string/guide_empty_favorite_list_desc"
             android:textColor="@color/white"
             android:visibility="@{vm.favoriteList.size > 0 ? View.GONE : View.VISIBLE}"
+            app:drawableTopCompat="@drawable/ic_star"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/guide_error_desc"
+            android:textColor="@color/white"
+            android:visibility="@{vm.isError ? View.VISIBLE : View.GONE}"
+            app:drawableTopCompat="@drawable/ic_refresh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setRefreshClick="@{vm.onRefreshClick}"
+            tools:visibility="gone" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

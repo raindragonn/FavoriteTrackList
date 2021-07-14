@@ -19,8 +19,8 @@
         <View
             android:id="@+id/v_bg"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="16dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
             android:background="@color/SecondaryDarkColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,15 +29,15 @@
 
         <ImageView
             android:id="@+id/iv_album"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_margin="16dp"
             app:layout_constraintBottom_toBottomOf="@id/v_bg"
             app:layout_constraintStart_toStartOf="@id/v_bg"
             app:layout_constraintTop_toTopOf="@id/v_bg"
             app:loadUrl="@{trackItem.albumArtUrl}"
-            tools:src="@drawable/ic_launcher_background"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -46,7 +46,7 @@
             android:layout_marginHorizontal="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{trackItem.artistName}"
+            android:text="@{trackItem.trackName}"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -98,8 +98,8 @@
             android:src="@{trackItem.isFavorite ? @drawable/ic_star : @drawable/ic_star_border}"
             app:layout_constraintBottom_toBottomOf="@id/v_bg"
             app:layout_constraintEnd_toEndOf="@id/v_bg"
-            tools:src="@drawable/ic_star"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_star" />
 
         <View
             android:layout_width="0dp"

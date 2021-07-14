@@ -29,6 +29,8 @@ abstract class BaseFragment<VB : ViewDataBinding>(
             false
         ).also {
             _binding = it.apply {
+                // Fragment 의 라이프 사이클이 Fragment View 보다 길기 때문에
+                // 중복 호출을 피하기 위해 viewLifecycleOwner 이용
                 lifecycleOwner = viewLifecycleOwner
             }
         }.root

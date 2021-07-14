@@ -1,11 +1,11 @@
 package com.raindragonn.favoritetracklist.data.repository
 
-import com.raindragonn.favoritetracklist.data.local.room.entity.FavoriteEntity
 import com.raindragonn.favoritetracklist.data.model.TrackItem
 
 interface TrackRepository {
-    suspend fun getTrackList(): List<TrackItem>
-    suspend fun getFavoriteList(): List<FavoriteEntity>
-    suspend fun insertFavorite(favoriteEntity: FavoriteEntity)
-    suspend fun deleteFavorite(favoriteEntity: FavoriteEntity)
+    suspend fun getTrackList(limit: Int, offset: Int): List<TrackItem>
+    suspend fun getFavoriteList(): List<TrackItem>
+    suspend fun getFavorite(id: Int): TrackItem?
+    suspend fun insertFavorite(favoriteEntity: TrackItem)
+    suspend fun updateFavorite(favoriteEntity: TrackItem)
 }
