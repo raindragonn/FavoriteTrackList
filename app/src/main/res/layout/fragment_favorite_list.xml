@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="com.raindragonn.favoritetracklist.R"/>
 
         <variable
             name="vm"

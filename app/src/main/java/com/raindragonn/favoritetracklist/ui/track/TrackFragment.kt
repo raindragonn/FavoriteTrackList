@@ -12,7 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class TrackFragment : BaseFragment<FragmentTrackListBinding>(R.layout.fragment_track_list) {
     companion object {
         const val TAG = "TrackFragment"
-        fun newInstance() = TrackFragment()
     }
 
     // 메인 엑티비티의 뷰모델을 공유하여 사용합니다.

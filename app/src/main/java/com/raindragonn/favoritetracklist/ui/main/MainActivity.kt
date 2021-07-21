@@ -23,12 +23,11 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.apply {
-            lifecycleOwner = this@MainActivity
-            initBottomNavigationView()
+        binding.lifecycleOwner = this@MainActivity
 
-            vm.loadList()
-        }
+        initBottomNavigationView()
+
+        vm.loadList()
     }
 
     private fun initBottomNavigationView() = with(binding) {
@@ -39,11 +38,11 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_track_list -> {
-                replaceFragment(TrackFragment.newInstance(), TrackFragment.TAG)
+                replaceFragment({ TrackFragment() }, TrackFragment.TAG)
                 true
             }
             R.id.menu_favorite_list -> {
-                replaceFragment(FavoriteFragment.newInstance(), FavoriteFragment.TAG)
+                replaceFragment({ FavoriteFragment() }, FavoriteFragment.TAG)
                 true
             }
             else -> false
@@ -55,7 +54,26 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
      * 기존 프래그먼트가 없는경우 새로 추가하며
      * 프래그먼트가 있는경우 다른 프래그먼트를 숨기고 보여줍니다.
      */
-    private fun replaceFragment(fragment: Fragment, tag: String) {
+//    private fun replaceFragment(fragment: Fragment, tag: String) {
+//        val findFragment = supportFragmentManager.findFragmentByTag(tag)
+//
+//        supportFragmentManager.fragments.forEach { fm ->
+//            supportFragmentManager.beginTransaction().hide(fm).commitAllowingStateLoss()
+//        }
+//
+//        findFragment?.let {
+//            supportFragmentManager.beginTransaction().show(it).commitAllowingStateLoss()
+//        } ?: run {
+//            supportFragmentManager.beginTransaction()
+//                .add(R.id.fl_container, fragment, tag)
+//                .commitAllowingStateLoss()
+//        }
+//    }
+
+    /**
+     * 변경
+     */
+    private fun replaceFragment(fragmentProvider: () -> Fragment, tag: String) {
         val findFragment = supportFragmentManager.findFragmentByTag(tag)
 
         supportFragmentManager.fragments.forEach { fm ->
@@ -66,7 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             supportFragmentManager.beginTransaction().show(it).commitAllowingStateLoss()
         } ?: run {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fl_container, fragment, tag)
+                .add(R.id.fl_container, fragmentProvider(), tag)
                 .commitAllowingStateLoss()
         }
     }
