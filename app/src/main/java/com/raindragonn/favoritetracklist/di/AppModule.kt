@@ -10,7 +10,8 @@ import com.raindragonn.favoritetracklist.data.remote.RemoteDataSourceImpl
 import com.raindragonn.favoritetracklist.data.remote.api.ItunesApi
 import com.raindragonn.favoritetracklist.data.repository.TrackRepository
 import com.raindragonn.favoritetracklist.data.repository.TrackRepositoryImpl
-import com.raindragonn.favoritetracklist.ui.main.MainViewModel
+import com.raindragonn.favoritetracklist.ui.favorite.FavoriteViewModel
+import com.raindragonn.favoritetracklist.ui.track.TrackViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -23,7 +24,8 @@ import org.koin.dsl.module
 val appModule = module {
 
     // ViewModel
-    viewModel<MainViewModel> { MainViewModel(get<TrackRepository>()) }
+    viewModel<FavoriteViewModel> { FavoriteViewModel(get<TrackRepository>()) }
+    viewModel<TrackViewModel> { TrackViewModel(get<TrackRepository>()) }
 
     // Repository
     single<TrackRepository> { TrackRepositoryImpl(get<RemoteDataSource>(), get<LocalDataSource>()) }

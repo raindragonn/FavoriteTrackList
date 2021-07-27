@@ -53,8 +53,13 @@ dependencies {
 
     // Retrofit - Http 통신을 보다 편하게 하기위한 라이브러리
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}" // 응답받은 Json을 편하게 컨버팅 하기 위함
-    implementation "com.squareup.okhttp3:logging-interceptor:${versions.logging_interceptor}" // http 통신 로그 확인을 위함
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+    // 응답받은 Json을 편하게 컨버팅 하기 위함
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.logging_interceptor}"
+    // http 통신 로그 확인을 위함
+
+    //Paging 3 - 페이지 네이션을 편하게 하기위한 라이브러리
+    implementation "androidx.paging:paging-runtime-ktx:${versions.paging}"
 
     // Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutine}"

@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="com.raindragonn.favoritetracklist.ui.main.MainViewModel" />
+            type="com.raindragonn.favoritetracklist.ui.favorite.FavoriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,13 +23,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="@{vm.isError ? View.GONE : View.VISIBLE}"
-            app:items="@{vm.favoriteList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setOnclick="@{vm.onFavoriteClick}" />
+            app:items="@{vm.favoriteList}"/>
 
         <ProgressBar
             android:id="@+id/pb_loading"
@@ -42,6 +41,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -53,21 +53,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/guide_error_desc"
-            android:textColor="@color/white"
-            android:visibility="@{vm.isError ? View.VISIBLE : View.GONE}"
-            app:drawableTopCompat="@drawable/ic_refresh"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:setRefreshClick="@{vm.onRefreshClick}"
-            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

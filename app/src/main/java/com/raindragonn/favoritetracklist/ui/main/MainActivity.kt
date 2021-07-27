@@ -11,23 +11,17 @@ import com.raindragonn.favoritetracklist.databinding.ActivityMainBinding
 import com.raindragonn.favoritetracklist.ui.favorite.FavoriteFragment
 import com.raindragonn.favoritetracklist.ui.track.TrackFragment
 import kotlinx.coroutines.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
-    // ViewModel
-    private val vm: MainViewModel by viewModel()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this@MainActivity
 
         initBottomNavigationView()
-
-        vm.loadList()
     }
 
     private fun initBottomNavigationView() = with(binding) {
@@ -53,25 +47,6 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
      * 프래그먼트 변경 기능
      * 기존 프래그먼트가 없는경우 새로 추가하며
      * 프래그먼트가 있는경우 다른 프래그먼트를 숨기고 보여줍니다.
-     */
-//    private fun replaceFragment(fragment: Fragment, tag: String) {
-//        val findFragment = supportFragmentManager.findFragmentByTag(tag)
-//
-//        supportFragmentManager.fragments.forEach { fm ->
-//            supportFragmentManager.beginTransaction().hide(fm).commitAllowingStateLoss()
-//        }
-//
-//        findFragment?.let {
-//            supportFragmentManager.beginTransaction().show(it).commitAllowingStateLoss()
-//        } ?: run {
-//            supportFragmentManager.beginTransaction()
-//                .add(R.id.fl_container, fragment, tag)
-//                .commitAllowingStateLoss()
-//        }
-//    }
-
-    /**
-     * 변경
      */
     private fun replaceFragment(fragmentProvider: () -> Fragment, tag: String) {
         val findFragment = supportFragmentManager.findFragmentByTag(tag)

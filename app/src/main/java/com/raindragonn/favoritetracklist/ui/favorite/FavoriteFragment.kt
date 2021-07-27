@@ -4,30 +4,25 @@ import android.os.Bundle
 import android.view.View
 import com.raindragonn.favoritetracklist.R
 import com.raindragonn.favoritetracklist.databinding.FragmentFavoriteListBinding
-import com.raindragonn.favoritetracklist.ui.adapter.TrackListAdapter
+import com.raindragonn.favoritetracklist.ui.adapter.FavoriteListAdapter
 import com.raindragonn.favoritetracklist.ui.base.BaseFragment
-import com.raindragonn.favoritetracklist.ui.main.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavoriteFragment : BaseFragment<FragmentFavoriteListBinding>(R.layout.fragment_favorite_list) {
+class FavoriteFragment :
+    BaseFragment<FragmentFavoriteListBinding>(R.layout.fragment_favorite_list) {
     companion object {
         const val TAG = "FavoriteFragment"
     }
 
-    // 메인 엑티비티의 뷰모델을 공유하여 사용합니다.
-    // koin의 sharedViewModel 사용함으로 새로운 뷰모델이 아닌 Activity 에서 생성한 뷰모델을 사용합니다.
-    private val viewModel: MainViewModel by sharedViewModel()
+    private val viewModel: FavoriteViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            vm = viewModel
-        }
-        initRecyclerView()
+        binding.vm = viewModel
     }
 
-    private fun initRecyclerView() = with(binding) {
-        rvFavorite.adapter = TrackListAdapter()
+    override fun initViews() = with(binding) {
+        rvFavorite.adapter = FavoriteListAdapter(viewModel.onFavoriteClick)
         rvFavorite.itemAnimator = null
     }
 }

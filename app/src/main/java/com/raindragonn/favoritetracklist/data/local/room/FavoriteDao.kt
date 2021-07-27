@@ -1,5 +1,6 @@
 package com.raindragonn.favoritetracklist.data.local.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.raindragonn.favoritetracklist.data.model.TrackItem
 
@@ -8,14 +9,14 @@ import com.raindragonn.favoritetracklist.data.model.TrackItem
 interface FavoriteDao {
 
     @Query("select * from favorites")
-    suspend fun getFavoriteList(): List<TrackItem>
+    fun getAllFavoriteLiveList(): LiveData<List<TrackItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(favoriteEntity: TrackItem)
 
     @Query("select * from favorites where trackId == :id")
-    suspend fun getFavorite(id: Int): TrackItem?
+    suspend fun getFavoriteById(id: Int): TrackItem?
 
-    @Update
-    suspend fun updateFavorite(favoriteEntity: TrackItem)
+    @Query("delete from favorites where trackId == :id")
+    suspend fun deleteFavorite(id: Int)
 }

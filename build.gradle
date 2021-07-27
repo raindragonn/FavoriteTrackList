@@ -7,7 +7,8 @@ buildscript {
             "logging_interceptor": "4.9.1",
             "coroutine"          : "1.4.3",
             "koin"               : "2.2.3",
-            "glide"              : "4.12.0"
+            "glide"              : "4.12.0",
+            "paging"             : "3.0.1"
     ]
 
     repositories {

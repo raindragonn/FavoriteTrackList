@@ -1,11 +1,10 @@
 package com.raindragonn.favoritetracklist.data.remote
 
-import com.raindragonn.favoritetracklist.data.remote.response.Track
-import retrofit2.http.Query
+import com.raindragonn.favoritetracklist.data.model.TrackItem
 
 interface RemoteDataSource {
-    suspend fun getTrackItemList(
+    suspend fun getTrackItemListForItunes(
         limit: Int,
         offset: Int
-    ): List<Track>
+    ): List<TrackItem>
 }

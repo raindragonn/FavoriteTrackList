@@ -1,11 +1,14 @@
 package com.raindragonn.favoritetracklist.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import com.raindragonn.favoritetracklist.data.model.TrackItem
+import kotlinx.coroutines.CoroutineScope
 
 interface TrackRepository {
-    suspend fun getTrackList(limit: Int, offset: Int): List<TrackItem>
-    suspend fun getFavoriteList(): List<TrackItem>
-    suspend fun getFavorite(id: Int): TrackItem?
+    fun getTrackList(viewModelScope: CoroutineScope): LiveData<PagingData<TrackItem>>
+    fun getAllFavoriteLiveList(): LiveData<List<TrackItem>>
+    suspend fun getFavoriteById(id: Int): TrackItem?
     suspend fun insertFavorite(favoriteEntity: TrackItem)
-    suspend fun updateFavorite(favoriteEntity: TrackItem)
+    suspend fun deleteFavorite(id: Int)
 }

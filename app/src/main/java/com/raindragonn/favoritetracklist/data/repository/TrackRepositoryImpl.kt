@@ -1,9 +1,12 @@
 package com.raindragonn.favoritetracklist.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.*
 import com.raindragonn.favoritetracklist.data.local.LocalDataSource
 import com.raindragonn.favoritetracklist.data.model.TrackItem
+import com.raindragonn.favoritetracklist.data.pagingsoruce.ItunesPagingSource
 import com.raindragonn.favoritetracklist.data.remote.RemoteDataSource
-import com.raindragonn.favoritetracklist.data.remote.response.mapToItem
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -11,27 +14,43 @@ class TrackRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : TrackRepository {
-    override suspend fun getTrackList(limit: Int, offset: Int): List<TrackItem> =
-        withContext(Dispatchers.IO) {
-            remoteDataSource.getTrackItemList(limit, offset).map { it.mapToItem() }
-        }
-
-    override suspend fun getFavoriteList(): List<TrackItem> = withContext(Dispatchers.IO) {
-        localDataSource.getFavoriteList()
+    companion object {
+        private const val REQUEST_LIMIT_DATA = 50
     }
+
+    override fun getTrackList(viewModelScope: CoroutineScope): LiveData<PagingData<TrackItem>> {
+        return Pager(
+            /**
+             * PagingConfig = 로드 대기시간 초기 로드 크기 등 설정
+             * 초기 로드 크기는 pageSize * 3
+             */
+            config = PagingConfig(
+                pageSize = REQUEST_LIMIT_DATA
+            ),
+            pagingSourceFactory = {
+                ItunesPagingSource(
+                    remoteDataSource
+                )
+            }
+        ).liveData
+            .cachedIn(viewModelScope)
+    }
+
+    override fun getAllFavoriteLiveList(): LiveData<List<TrackItem>> =
+        localDataSource.getAllFavoriteLiveList()
 
     override suspend fun insertFavorite(favoriteEntity: TrackItem) =
         withContext(Dispatchers.IO) {
             localDataSource.insertFavorite(favoriteEntity)
         }
 
-    override suspend fun getFavorite(id: Int): TrackItem? =
+    override suspend fun getFavoriteById(id: Int): TrackItem? =
         withContext(Dispatchers.IO) {
-            localDataSource.getFavorite(id)
+            localDataSource.getFavoriteById(id)
         }
 
-    override suspend fun updateFavorite(favoriteEntity: TrackItem) =
+    override suspend fun deleteFavorite(id: Int) =
         withContext(Dispatchers.IO) {
-            localDataSource.updateFavorite(favoriteEntity)
+            localDataSource.deleteFavorite(id)
         }
 }

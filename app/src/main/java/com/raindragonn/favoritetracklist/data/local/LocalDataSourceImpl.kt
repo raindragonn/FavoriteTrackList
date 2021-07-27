@@ -1,20 +1,21 @@
 package com.raindragonn.favoritetracklist.data.local
 
+import androidx.lifecycle.LiveData
 import com.raindragonn.favoritetracklist.data.local.room.FavoriteDao
 import com.raindragonn.favoritetracklist.data.model.TrackItem
 
 class LocalDataSourceImpl(
     private val dao: FavoriteDao
 ) : LocalDataSource {
-    override suspend fun getFavoriteList(): List<TrackItem> =
-        dao.getFavoriteList()
+    override fun getAllFavoriteLiveList(): LiveData<List<TrackItem>> =
+        dao.getAllFavoriteLiveList()
 
     override suspend fun insertFavorite(favoriteEntity: TrackItem) =
         dao.insertFavorite(favoriteEntity)
 
-    override suspend fun getFavorite(id: Int): TrackItem? =
-        dao.getFavorite(id)
+    override suspend fun getFavoriteById(id: Int): TrackItem? =
+        dao.getFavoriteById(id)
 
-    override suspend fun updateFavorite(favoriteEntity: TrackItem) =
-        dao.updateFavorite(favoriteEntity)
+    override suspend fun deleteFavorite(id: Int) =
+        dao.deleteFavorite(id)
 }
